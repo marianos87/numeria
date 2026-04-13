@@ -8,19 +8,20 @@ interface FormData {
   name: string
   company: string
   email: string
+  phone: string
   type: FormType
 }
 
 export default function Home() {
   const [formType, setFormType] = useState<FormType>(null)
-  const [formData, setFormData] = useState<FormData>({ name: '', company: '', email: '', type: null })
+  const [formData, setFormData] = useState<FormData>({ name: '', company: '', email: '', phone: '', type: null })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const openForm = (type: FormType) => {
     setFormType(type)
-    setFormData({ name: '', company: '', email: '', type })
+    setFormData({ name: '', company: '', email: '', phone: '', type })
     setError('')
   }
 
@@ -357,6 +358,13 @@ export default function Home() {
                     placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gray-400"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Telefono (opzionale)"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gray-400"
                   />
                   {error && <p className="text-red-500 text-xs">{error}</p>}

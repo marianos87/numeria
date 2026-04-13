@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { Resend } from 'resend'
 
 export async function POST(req: NextRequest) {
-  const { name, company, email, type } = await req.json()
+  const { name, company, email, phone, type } = await req.json()
 
   // Save to Supabase
   const supabase = createClient(
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   )
 
   const { error: dbError } = await supabase.from('leads').insert([
-    { name, company, email, type, created_at: new Date().toISOString() }
+    { name, company, email, phone: phone || null, type, created_at: new Date().toISOString() }
   ])
 
   if (dbError) {
@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
         <p><strong>Nome:</strong> ${name}</p>
         <p><strong>Studio/Azienda:</strong> ${company}</p>
         <p><strong>Email:</strong> ${email}</p>
+        ${phone ? `<p><strong>Telefono:</strong> ${phone}</p>` : ''}
         <p><strong>Tipo:</strong> ${type === 'demo' ? 'Demo 10\'' : 'Parla con noi'}</p>
       </div>
     `,

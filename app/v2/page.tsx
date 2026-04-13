@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 type FormType = 'sales' | 'demo' | null
-interface FormData { name: string; company: string; email: string; type: FormType }
+interface FormData { name: string; company: string; email: string; phone: string; type: FormType }
 
 const DELIVERABLES = [
   {
@@ -129,12 +129,12 @@ const DELIVERABLES = [
 export default function HomeV2() {
   const [activeTab, setActiveTab] = useState(0)
   const [formType, setFormType] = useState<FormType>(null)
-  const [formData, setFormData] = useState<FormData>({ name: '', company: '', email: '', type: null })
+  const [formData, setFormData] = useState<FormData>({ name: '', company: '', email: '', phone: '', type: null })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const openForm = (type: FormType) => { setFormType(type); setFormData({ name: '', company: '', email: '', type }); setError('') }
+  const openForm = (type: FormType) => { setFormType(type); setFormData({ name: '', company: '', email: '', phone: '', type }); setError('') }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setLoading(true); setError('')
@@ -437,6 +437,7 @@ export default function HomeV2() {
                     { ph: 'Il tuo nome', key: 'name', type: 'text' },
                     { ph: 'Studio / Azienda', key: 'company', type: 'text' },
                     { ph: 'Email', key: 'email', type: 'email' },
+                    { ph: 'Telefono (opzionale)', key: 'phone', type: 'tel' },
                   ].map((f) => (
                     <input
                       key={f.key} required type={f.type} placeholder={f.ph}
